@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Java Stage') {
       agent {
-        docker { image 'openjdk:11-jdk-slim' }
+        docker { image 'eclipse-temurin:11-jdk-jammy' }
       }
       steps {
         sh '''
@@ -24,7 +24,7 @@ pipeline {
 
     stage('NodeJS Stage') {
       agent {
-        docker { image 'node:16-alpine' }
+        docker { image 'node:18-alpine' }
       }
       steps {
         sh '''
