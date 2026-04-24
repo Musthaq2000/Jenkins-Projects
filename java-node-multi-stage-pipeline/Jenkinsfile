@@ -1,0 +1,37 @@
+pipeline {
+  agent none
+
+  stages {
+    stage('Java Stage') {
+      agent {
+        docker { image 'openjdk:11-jdk-slim' }
+      }
+      steps {
+        sh '''
+          echo "Running Java Hello World"
+          cat <<EOF > HelloWorld.java
+          public class HelloWorld {
+              public static void main(String[] args) {
+                  System.out.println("Hello World from Java!");
+              }
+          }
+          EOF
+          javac HelloWorld.java
+          java HelloWorld
+        '''
+      }
+    }
+
+    stage('NodeJS Stage') {
+      agent {
+        docker { image 'node:16-alpine' }
+      }
+      steps {
+        sh '''
+          echo "Running Node.js Hello World"
+          node -e "console.log('Hello World from Node.js!')"
+        '''
+      }
+    }
+  }
+}
